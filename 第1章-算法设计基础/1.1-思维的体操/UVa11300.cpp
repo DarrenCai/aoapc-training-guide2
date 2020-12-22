@@ -1,4 +1,4 @@
-// UVa11300 Spreading The Wealth
+// 例题3  分金币（Spreading the Wealth, UVa 11300）
 // Rujia Liu
 #include<cstdio>
 #include<algorithm>

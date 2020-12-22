@@ -1,4 +1,4 @@
-// Jurassic Remains, NEERC 2003, Codeforces Gym101388J
+// 例题25  侏罗纪（Jurassic Remains, NEERC 2003, Codeforces Gym101388J）
 // Rujia Liu
 #include<cstdio>
 #include<map>

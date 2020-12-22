@@ -1,4 +1,4 @@
-// Robotruck, SWERC 2007, UVa1169
+// 例题31  捡垃圾的机器人（Robotruck, SWERC 2007, UVa1169）
 // Rujia Liu
 #include<cstdio>
 #include<algorithm>
