@@ -1,86 +1,55 @@
-// 例题14  strcmp()函数（“strcmp()” Anyone?, UVa 11732）
-// Rujia Liu
-#include<cstring>
-#include<vector>
+// 例题14 strcmp()函数（“strcmp()” Anyone?, UVa11732）
+// 詹益瑞,陈锋
+#include<bits/stdc++.h>
 using namespace std;
-
-const int maxnode = 4000 * 1000 + 10;
-const int sigma_size = 26;
-
-// 字母表为全体小写字母的Trie
+typedef long long LL;
+const int SZ = 4e6 + 5, SIGMA = 70;
 struct Trie {
-  int head[maxnode]; // head[i]为第i个结点的左儿子编号
-  int next[maxnode]; // next[i]为第i个结点的右兄弟编号
-  char ch[maxnode];  // ch[i]为第i个结点上的字符
-  int tot[maxnode];  // tot[i]为第i个结点为根的子树包含的叶结点总数
-  int sz; // 结点总数
-  long long ans; // 答案
-  void clear() { sz = 1; tot[0] = head[0] = next[0] = 0; } // 初始时只有一个根结点
-
-  // 插入字符串s（包括最后的'\0'），沿途更新tot
-  void insert(const char *s) {
-    int u = 0, v, n = strlen(s);
-    tot[0]++;
-    for(int i = 0; i <= n; i++) {
-      // 找字符a[i]
-      bool found = false;
-      for(v = head[u]; v != 0; v = next[v])
-        if(ch[v] == s[i]) { // 找到了
-          found = true;
-          break;
-        }
-      if(!found) {
-        v = sz++; // 新建结点
-        tot[v] = 0;
-        ch[v] = s[i];
-        next[v] = head[u];
-        head[u] = v; // 插入到链表的首部
-        head[v] = 0;
-      }
-      u = v;
-      tot[u]++;
+  int ch[SZ][SIGMA], cnt[SZ], val[SZ], sz = 0;
+  int idx(char c) {
+    if (isdigit(c)) return c - '0';
+    if (c >= 'A' && c <= 'Z') return c - 'A' + 10;
+    return c - 'a' + 38;
+  }
+  int newNode() {
+    fill_n(ch[sz], SIGMA, 0), cnt[sz] = 0, val[sz] = 0;
+    return sz++;
+  }
+  void insert(const char* s) {
+    int len = strlen(s), u = 0;
+    for (int i = 0; i < len; ++i) {
+      int c = idx(s[i]), &uc = ch[u][c];
+      if (!uc) uc = newNode();
+      u = uc, cnt[u]++;
     }
+    val[u]++; // 单词结束点
   }
-
-  // 统计LCP=u的所有单词两两的比较次数之和
-  void dfs(int depth, int u) {
-    if(head[u] == 0) // 叶结点
-      ans += tot[u] * (tot[u] - 1) * depth;
-    else {
-      int sum = 0;
-      for(int v = head[u]; v != 0; v = next[v])
-        sum += tot[v] * (tot[u] - tot[v]); // 子树v中选一个串，其他子树中再选一个
-      ans += sum / 2 * (2 * depth + 1); // 除以2是每种选法统计了两次
-      for(int v = head[u]; v != 0; v = next[v])
-        dfs(depth+1, v);
+  LL query(const char* s) {
+    LL x = 0;
+    int len = strlen(s), u = 0;
+    for (int i = 0; i < len; ++i) {
+      int c = idx(s[i]);
+      if (!ch[u][c]) return x;
+      // 不等的2个串的相同部分每个字符比较2次，最后一位不同的还有一次
+      u = ch[u][c], x += cnt[u] * 2;
     }
+    return x + val[u];
   }
-
-  // 统计
-  long long count() {
-    ans = 0;
-    dfs(0, 0);
-    return ans;
-  }
+  void init() { sz = 0, newNode(); }
 };
 
-#include<cstdio>
-const int maxl = 1000 + 10;   // 每个单词最大长度
 
-int n;
-char word[maxl];
 Trie trie;
-
+char s[1004];
 int main() {
-  int kase = 1;
-  while(scanf("%d", &n) == 1 && n) {
-    trie.clear();
-    for(int i = 0; i < n; i++) {
-      scanf("%s", word);
-      trie.insert(word);
-    }
-    printf("Case %d: %lld\n", kase++, trie.count());
+  for (int n, kase = 1; scanf("%d", &n) && n; kase++) {
+    trie.init();
+    LL ans = 0;
+    for (int i = 1; i <= n; ++i)
+      scanf("%s", s), ans += trie.query(s), trie.insert(s);
+    ans += n * (n - 1) / 2; // 最后再补上每两个串的结尾比较一次
+    printf("Case %d: %lld\n", kase, ans);
   }
   return 0;
 }
-// 25877254  11732  "strcmp()" Anyone?  Accepted  C++  0.510  2020-12-23 04:09:45
+// 26047697 11732 "strcmp()" Anyone?  Accepted  C++ 0.810 2021-02-02 06:31:12

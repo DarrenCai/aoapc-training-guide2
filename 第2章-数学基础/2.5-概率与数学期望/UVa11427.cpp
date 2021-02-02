@@ -1,5 +1,5 @@
 // UVa11427 Expect the Expected
-// 陈锋
+// 刘汝佳
 #include <cmath>
 #include <cstdio>
 #include <cstring>
