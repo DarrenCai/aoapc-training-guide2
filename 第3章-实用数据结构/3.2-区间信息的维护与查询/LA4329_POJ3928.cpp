@@ -23,7 +23,6 @@ struct BIT {  // Binary Indexed Tree
     while (i > 0) ans += C[i], i -= lowbit(i);
     return ans;
   }
-
   inline void add(size_t i, const T& v) {
     while (i <= N) C[i] += v, i += lowbit(i);
   }
