@@ -9,8 +9,7 @@
     
  总时间复杂度为 **O(2<sup>n/2</sup>log n)，即O(1.44<sup>n</sup>log n)** 
      应为：
-
-    总时间为 O(n/2*2<sup>n/2</sup>log2)，即 O(n*1.44<sup>n</sup>)。
+ 总时间为 O(n/2*2<sup>n/2</sup>log2)，即 O(n*1.44<sup>n</sup>)。
 
 
 ## 第3章
