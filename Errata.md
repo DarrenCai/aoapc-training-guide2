@@ -3,6 +3,13 @@
 #### 介绍
 《算法竞赛入门经典-训练指南-升级版》勘误
 
+## 第2章
+
+- 例题25  侏罗纪（Jurassic Remains, NEERC 2003, Codeforces Gym 101388J）
+     总时间复杂度为O(2<sup>n/2</sup>log n)，即O(1.44<sup>n</sup>log n)
+     应为：总时间为 O(n/2*2<sup>n/2</sup>log2)，即 O(n*1.44<sup>n</sup>)。
+
+
 ## 第3章
 
 ### 3.5.1 表 3-5
