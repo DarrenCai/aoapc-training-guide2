@@ -6,7 +6,6 @@
 #include <complex>
 #define _for(i, a, b) for (int i = (a); i < (int)(b); ++i)
 using namespace std;
-bool isPowOf2(int x) { return x && !(x & (x - 1)); }
 typedef complex<double> Cplx;  // 复数 x + i*y
 template<size_t N> // 多项式的阶
 struct FFT {
@@ -39,7 +38,7 @@ struct FFT {
     rec_fft_impl(A, n, 0, Arti_Epsilon);
     for (size_t i = 0; i < A.size(); i++) A[i] /= n;
   }
-  void fft(vector<Cplx>& A, int n) { rec_fft_impl(A, n, 0, Epsilon); }
+  void dft(vector<Cplx>& A, int n) { rec_fft_impl(A, n, 0, Epsilon); }
 };
 
 const double EPS = 1e-8;
@@ -52,12 +51,12 @@ int main() {
     int N = 1;
     _for(i, 0, n) {
       scanf("%d", &(A[i]));
-      while (A[i] * 2 > N) N *= 2;
-    } // N是 >= max(A[i])的2的幂
-    _for(i, 0, 2 * N) F[i] = Cplx();
+      while (A[i] >= N) N *= 2;
+    } // N是 > max(A[i])的2的幂
+    N *= 2, fill_n(F.begin(), N, Cplx());
     F[0].real(1);
     _for(i, 0, n) F[A[i]] = 1;
-    solver.init_fft(N), solver.fft(F, N);
+    solver.init_fft(N), solver.dft(F, N);
     for (int i = 0; i < N; i++) F[i] *= F[i];
     solver.idft(F, N);
     int ans = 0; scanf("%d", &M);
