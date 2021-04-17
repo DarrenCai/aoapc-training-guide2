@@ -60,12 +60,13 @@ IVec NTT(const IVec& A, const IVec& W, int level = 1) {
     return ans;
   }
   const IVec &A0 = NTT(slice_vec(A, 0, 2), W, level * 2),
-             &A1 = NTT(slice_vec(A, 1, 2), W, level * 2);
+              &A1 = NTT(slice_vec(A, 1, 2), W, level * 2);
   _for(i, 0, n) ans[i] = add_mod(A0[i % m], mul_mod(W[level * i], A1[i % m]));
   return ans;
 }
 
 int main() {
+  ios::sync_with_stdio(false), cin.tie(0);
   const int g = getGen(MOD);
   int n;
   cin >> n;
@@ -73,10 +74,10 @@ int main() {
   IVec A(n), ans(MOD), W(K), B(n);
   _for(i, 0, n) cin >> A[i];
   _for(i, 0, K) W[i] = pow_mod(w, i);
-  _rep(a, 0, 2) {
-    _for(i, 0, n) B[i] = mul_mod(A[i], pow_mod(g, a * i));
+  _rep(c, 0, 2) {
+    _for(i, 0, n) B[i] = mul_mod(A[i], pow_mod(g, c * i));
     const IVec& Y = NTT(B, W);
-    _for(i, 0, K) ans[mul_mod(pow_mod(g, a), W[i])] = Y[i];
+    _for(i, 0, K) ans[mul_mod(pow_mod(g, c), W[i])] = Y[i];
   }
   ans[0] = A[0];
   int Q, x;

@@ -38,7 +38,7 @@ struct FFT {
     rec_fft_impl(A, n, 0, Arti_Epsilon);
     for (size_t i = 0; i < A.size(); i++) A[i] /= n;
   }
-  void fft(vector<Cplx>& A, int n) { rec_fft_impl(A, n, 0, Epsilon); }
+  void dft(vector<Cplx>& A, int n) { rec_fft_impl(A, n, 0, Epsilon); }
 };
 
 const double EPS = 1e-6;
@@ -51,7 +51,7 @@ int main() {
   for (LL a = 1; a < MAXA; a++)
     for (LL b = 1; a * b < MAXA; b++) C[a * b]++;
   _for(i, 0, N2) F[i] = Cplx(C[i], 0);
-  solver.init_fft(N2), solver.fft(F, N2);
+  solver.init_fft(N2), solver.dft(F, N2);
   for (int i = 0; i < N2; i++) F[i] *= F[i];
   solver.idft(F, N2);
   int n; scanf("%d", &n);

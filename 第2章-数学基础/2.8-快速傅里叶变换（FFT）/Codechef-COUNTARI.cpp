@@ -39,7 +39,7 @@ struct FFT {
     rec_fft_impl(A, n, 0, Arti_Epsilon);
     for (size_t i = 0; i < A.size(); i++) A[i] /= n;
   }
-  void fft(vector<Cplx>& A, int n) { rec_fft_impl(A, n, 0, Epsilon); }
+  void dft(vector<Cplx>& A, int n) { rec_fft_impl(A, n, 0, Epsilon); }
 };
 const int N2 = 65536, MAXA = 30000, BLK_CNT = 30, MAXN = 1e5 + 4;
 FFT<N2> solver;
@@ -73,7 +73,7 @@ int main() {
     }
     if (bi > 0 && bi + 1 < BLK_CNT) { /* 只有中间元素在当前Block内 */
       _for(i, 0, N2) A1[i] = Cplx(PREV[i], 0), A2[i] = Cplx(NEXT[i], 0);
-      solver.fft(A1, N2), solver.fft(A2, N2);
+      solver.dft(A1, N2), solver.dft(A2, N2);
       for (size_t i = 0; i < A1.size(); i++) A1[i] *= A2[i];
       solver.idft(A1, N2); // 卷积计算，计算分别位于Prev和Next内的两个和为2*ak的情况
       _for(ak, 0, MAXA) ans += INSIDE[ak] * llrint(A1[2 * ak].real());
