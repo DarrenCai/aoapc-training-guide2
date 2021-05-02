@@ -21,6 +21,17 @@
 后面一段的这句话： 对于等价类v={" **abca** ", "abc", "ab"}，len(v)=3, minlen(v)=2。
 修改为v={"abc", "bc", "c"}。
 
+### 例题30  图询问（Graph and Queries, 天津 2010, LA 5031）
+
+把T1中的所有结点一一插入T2中，时间复杂度为O(n<sub>1</sub>log n<sub>2</sub>)。
+
+修改为：
+
+把T1中的所有结点一一插入T2中，时间复杂度为O(n<sub>1</sub>log(n<sub>1</sub>+n<sub>2</sub>))。
+
+### 图3-60中
+右图中的 **h** 应该为b.
+
 ## 第4章 
 
 - 例题18  行星（Asteroids, NEERC 2009,  **UVa1710** ） 题号应为 UVa1438
