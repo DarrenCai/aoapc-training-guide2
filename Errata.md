@@ -23,7 +23,7 @@
 
 ### 例题30  图询问（Graph and Queries, 天津 2010, LA 5031）
 
-把T1中的所有结点一一插入T2中，时间复杂度为O(n<sub>1</sub>log n<sub>2</sub>)。
+把T1中的所有结点一一插入T2中，时间复杂度为 **O(n<sub>1</sub>log n<sub>2</sub>)** 。
 
 修改为：
 
