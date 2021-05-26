@@ -40,6 +40,12 @@
 
 要求在Ver(u)以及Ver(v)中出现的边的 **次** 数之和要大于Ver(d) **中次数的2倍** 
 
+### 例题57  自带版本控制功能的IDE
+
+#### Split(a,k)：部分：
+- 若a.L.size **≤** k，那么令{l,r}=split(a.left, k), a.left := r, 返回{l,a}。
+应为：
+- 若a.L.size **≥** k，那么令{l,r}=split(a.left, k), a.left := r, 返回{l,a}。
 
 ## 第4章 
 
