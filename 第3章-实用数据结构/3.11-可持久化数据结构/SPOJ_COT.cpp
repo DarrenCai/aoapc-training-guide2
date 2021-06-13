@@ -1,17 +1,11 @@
 // 例题54  树上计数（Count on a tree, SPOJ COT）
 // 陈锋
 #include <bits/stdc++.h>
-
 using namespace std;
 #define _for(i, a, b) for (int i = (a); i < (int)(b); ++i)
-#define _rep(i, a, b) for (int i = (a); i <= (int)(b); ++i)
-#define _zero(D) memset((D), 0, sizeof(D))
-#define _init(D, v) memset((D), (v), sizeof(D))
-
 const int MAXN = 100000 + 4, LN = 19;
 int W[MAXN], RM[MAXN], maxw = 0;
 map<int, int> WI;
-
 vector<int> G[MAXN]; // 树结构以及LCA
 int N, L, Tin[MAXN], Tout[MAXN], UP[MAXN][18], timer;
 
@@ -94,4 +88,4 @@ int main() {
   }
   return 0;
 }
-// 27147320	2020-12-23 07:33:54	Feng Chen	Count on a tree	accepted 4.03	82M	CPP
+// 27147320 2020-12-23 07:33:54 Feng Chen Count on a tree accepted 4.03 82M CPP

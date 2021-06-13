@@ -24,9 +24,10 @@ struct Node {
     if (ch[1] != NULL) s += ch[1]->s;
   }
 };
+typedef Node* PNode;
 
-void rotate(Node*& o, int d) {
-  Node* k = o->ch[d ^ 1];
+void rotate(PNode &o, int d) {
+  PNode k = o->ch[d ^ 1];
   o->ch[d ^ 1] = k->ch[d];
   k->ch[d] = o;
   o->maintain();
@@ -34,7 +35,7 @@ void rotate(Node*& o, int d) {
   o = k;
 }
 
-void insert(Node*& o, int x) {
+void insert(PNode &o, int x) {
   if (o == NULL)
     o = new Node(x);
   else {
@@ -45,7 +46,7 @@ void insert(Node*& o, int x) {
   o->maintain();
 }
 
-void remove(Node*& o, int x) {
+void remove(PNode &o, int x) {
   int d = o->cmp(x);
   if (d == -1) {
     Node* u = o;
