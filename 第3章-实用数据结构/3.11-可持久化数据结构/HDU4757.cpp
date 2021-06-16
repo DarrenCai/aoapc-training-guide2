@@ -1,5 +1,5 @@
 // 例题55  树上异或（Tree, ACM/ICPC 2013南京在线赛, HDU4757）
-// HDU4757
+// 陈锋
 #include <bits/stdc++.h>
 using namespace std;
 #define _for(i,a,b) for( int i=(a); i<(int)(b); ++i)
@@ -14,7 +14,6 @@ int newTrie() {
   fill_n(B[c].ch, 2, 0), B[c].cnt = 0;
   return c;
 }
-
 int insert(int p, int v, int dep) {
   int np = newTrie();
   Trie &t = B[np], &t0 = B[p];
@@ -25,7 +24,6 @@ int insert(int p, int v, int dep) {
   }
   return np;
 }
-
 int Fa[NN][MAXH + 1], D[NN]; // LCA
 void dfs(int u, int f) {
   Fa[u][0] = f, D[u] = D[f] + 1;
@@ -44,19 +42,18 @@ int lca(int u, int v) {
   return Fa[u][0];
 }
 int query(int u, int v, int x) {
-  int ans = 0, d = lca(u, v), ru = Ver[u], rv = Ver[v], rd = Ver[d];
+  int ans = 0, d = lca(u, v), ru = Ver[u], rv = Ver[v], rd = Ver[d], rf = Ver[Fa[d][0]];
   for (int i = 15; i >= 0; i--) { // x < 2^16，从高位到低位遍历
     bool f = !(x & 1 << i);
-    const Trie &tu = B[ru], &tv = B[rv], &td = B[rd];
-    if (B[tu.ch[f]].cnt + B[tv.ch[f]].cnt > B[td.ch[f]].cnt * 2)
+    const Trie &tu = B[ru], &tv = B[rv], &td = B[rd], &tf = B[rf];
+    if (B[tu.ch[f]].cnt + B[tv.ch[f]].cnt > B[td.ch[f]].cnt + B[tf.ch[f]].cnt)
       ans |= 1 << i;
     else
       f = !f;
-    ru = tu.ch[f], rv = tv.ch[f], rd = td.ch[f];
+    ru = tu.ch[f], rv = tv.ch[f], rd = td.ch[f], rf = tf.ch[f];
   }
   return max(ans, x ^ A[d]);
 }
-
 int main() {
   ios::sync_with_stdio(false), cin.tie(0);
   for (int n, m, u, v, x; cin >> n >> m; ) {
