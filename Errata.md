@@ -53,3 +53,7 @@
 ## 第4章 
 
 - 例题18  行星（Asteroids, NEERC 2009,  **UVa1710** ） 题号应为 UVa1438
+
+## 第5章
+
+- 例题33  收集者的难题（**Collector's Problem**, UVa 10779） 题目标题应为 Collectors Problem

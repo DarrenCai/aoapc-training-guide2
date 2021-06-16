@@ -1,4 +1,4 @@
-// 例题33  收集者的难题（Collector’s Problem, UVa 10779）
+// 例题33  收集者的难题（Collectors Problem, UVa 10779）
 // Rujia Liu
 #include <algorithm>
 #include <cstdio>
@@ -45,7 +45,7 @@ struct Dinic {
       for (size_t i = 0; i < G[x].size(); i++) {
         Edge &e = edges[G[x][i]];
         if (!vis[e.to] && e.cap > e.flow)
-          vis[e.to] = 1, d[e.to] = d[x] + 1, Q.push(e.to);
+          vis[e.to] = true, d[e.to] = d[x] + 1, Q.push(e.to);
       }
     }
     return vis[t];
