@@ -1,6 +1,8 @@
 // 例题13  派（Pie, NWERC 2006, Codeforces Gym100722C）
 // 陈锋
-#include <bits/stdc++.h>
+#include <cmath>
+#include <cstdio>
+#include <algorithm>
 
 using namespace std;
 #define _for(i, a, b) for (int i = (a); i < (b); ++i)
