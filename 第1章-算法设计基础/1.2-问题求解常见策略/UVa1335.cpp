@@ -1,46 +1,39 @@
 // 例题16  长城守卫（Beijing Guards, CERC 2004, UVa1335）
 // Rujia Liu
-#include<cstdio>
-#include<algorithm>
+#include <bits/stdc++.h>
+#define _all(i, a, b) for (int i = (a); i <= (int)(b); ++i)
 using namespace std;
-
-const int maxn = 100000 + 10;
-int n, r[maxn], left[maxn], right[maxn]; 
-
-// 测试p个礼物是否足够。
-// left[i]是第i个人拿到的“左边的礼物”总数，right类似
+const int NN = 1e5 + 4;
+// 测试p个礼物是否足够, Lᵢ,Rᵢ是第i个人拿到的“左≤(r₁)/右(>r₁)的礼物”总数
+int N, A[NN], L[NN], R[NN];
 bool test(int p) {
-  int x = r[1], y = p - r[1];
-  left[1] = x; right[1] = 0;
-  for(int i = 2; i <= n; i++) {
-    if(i % 2 == 1) {
-      right[i] = min(y - right[i-1], r[i]); // 尽量拿右边的礼物
-      left[i] = r[i] - right[i];
-    }
-    else {
-      left[i] = min(x - left[i-1], r[i]); // 尽量拿左边的礼物
-      right[i] = r[i] - left[i];
-    }
+  int lc = A[1], rc = p - A[1];
+  L[1] = lc, R[1] = 0;
+  _all(i, 2, N) {
+    if (i % 2)
+      R[i] = min(rc - R[i - 1], A[i]), L[i] = A[i] - R[i]; // 尽量拿右边的礼物
+    else
+      L[i] = min(lc - L[i - 1], A[i]), R[i] = A[i] - L[i]; // 尽量拿左边的礼物
   }
-  return left[n] == 0;
+  return L[N] == 0; // 跟1都不冲突
 }
-
+int solve() {
+  if (N == 1) return A[1]; // 特判n=1
+  A[N + 1] = A[1];
+  int l = 0, r = 0;
+  _all(i, 1, N) l = max(l, A[i] + A[i + 1]), r = max(r, A[i] * 3);
+  while (N % 2 && l < r) {
+    int m = l + (r - l) / 2;
+    if (test(m)) r = m;
+    else l = m + 1;
+  }
+  return l;
+}
 int main() {
-  while(scanf("%d", &n) == 1 && n) {
-    for(int i = 1; i <= n; i++) scanf("%d", &r[i]);
-    if(n == 1) { printf("%d\n", r[1]); continue; } // 特判n=1
-    r[n+1] = r[1];
-
-    int L = 0, R = 0;
-    for(int i = 1; i <= n; i++) L = max(L, r[i] + r[i+1]);
-    if(n % 2 == 1) {
-      for(int i = 1; i <= n; i++) R = max(R, r[i]*3);
-      while(L < R) {
-        int M = L + (R-L)/2;
-        if(test(M)) R = M; else L = M+1;
-      }
-    }
-    printf("%d\n", L);
+  ios::sync_with_stdio(false), cin.tie(0);
+  while (cin >> N && N) {
+    _all(i, 1, N) cin >> A[i];
+    cout << solve() << endl;
   }
   return 0;
 }
